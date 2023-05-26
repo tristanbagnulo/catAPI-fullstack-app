@@ -6,17 +6,40 @@ function App() {
   const [dropdownOptions, setDropdownOptions] = useState([]);
   const [breedData, setBreedData] = useState({});
   const [lookupBreed, setLookupBreed] = useState('');
+  const [catImageURL, setCatImageURL] = useState('');
   // const [idNamePairs, setIdNamePairs] = useState([]);
+
+  const requestRandomCatImage = async (breedId) => {
+    fetch(`http://localhost:3000/catImage?breedId=${breedId}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setCatImageURL(data[0].url)
+        console.log("Cat Image URL: ", data[0].url);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
+  const getBreedId = (selectedBreedName) => {
+    if (selectedBreedName && selectedBreedName !== ''){
+      const breedId = breedData.find(obj => obj.name === selectedBreedName).id;
+      return breedId;
+    }
+  }
 
   const handleBreedSelected = (selectedBreed) => {
     if (selectedBreed && selectedBreed !== ''){
-      setLookupBreed(selectedBreed)
+      // setLookupBreed(selectedBreed)
       console.log("Selected Breed: ", selectedBreed);
+      const breedId = getBreedId(selectedBreed);
+      requestRandomCatImage(breedId);
     }
   }
  
 
-  const handleClick = async () => {
+  const handleScreenLoad = async () => {
       fetch('http://localhost:3000/breedsList')
         .then(response => response.json())
         .then(data => {
@@ -32,7 +55,7 @@ function App() {
   }
 
   useEffect(() => {
-    handleClick();
+    handleScreenLoad();
     console.log("CLICK HANDLED!!!");
   }, []);
 
@@ -59,7 +82,11 @@ function App() {
         dropdownOptions={dropdownOptions} 
         handleBreedSelected={handleBreedSelected}
       />}
-      {/* <button onClick={handleClick}>Get Breeds</button> */}
+      <img 
+        src={catImageURL}
+        alt="Random Cat Image"
+        style={{ maxWidth: '500px' }}
+      />
     </div>
   );
 }

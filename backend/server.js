@@ -25,9 +25,9 @@ app.get('/breedsList', async (req, res) => {
 });
 
 //Get the data about a specific cat's image
-// Test URL - http://localhost:3000/cats?breedId=beng
+// Test URL - http://localhost:3000/catImage?breedId=beng
 // Response - [{"id":"H_UWbOfra","url":"https://cdn2.thecatapi.com/images/H_UWbOfra.jpg","width":1200,"height":1200}]
-app.get('/cats', async (req, res) => {
+app.get('/catImage', async (req, res) => {
     try {
         const breedId = req.query.breedId
         const response = await axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`);
