@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors')
 
 const app = express();
+// App starts on port 3000 by default. Can change later if needed.
 const port = 3000;
 app.use(cors());
 

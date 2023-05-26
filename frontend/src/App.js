@@ -5,8 +5,16 @@ import Dropdown from "./Dropdown";
 function App() {
   const [dropdownOptions, setDropdownOptions] = useState([]);
   const [breedData, setBreedData] = useState({});
+  const [lookupBreed, setLookupBreed] = useState('');
+  // const [idNamePairs, setIdNamePairs] = useState([]);
 
-  const [idNamePairs, setIdNamePairs] = useState([]);
+  const handleBreedSelected = (selectedBreed) => {
+    if (selectedBreed && selectedBreed !== ''){
+      setLookupBreed(selectedBreed)
+      console.log("Selected Breed: ", selectedBreed);
+    }
+  }
+ 
 
   const handleClick = async () => {
       fetch('http://localhost:3000/breedsList')
@@ -44,9 +52,13 @@ function App() {
     console.log("Dropdown Options in logging useEffect: ", dropdownOptions);
   }, [dropdownOptions]);
 
+
   return (
     <div className="App">
-      {dropdownOptions.length > 0 && <Dropdown dropdownOptions={dropdownOptions} />}
+      {dropdownOptions.length > 0 && <Dropdown 
+        dropdownOptions={dropdownOptions} 
+        handleBreedSelected={handleBreedSelected}
+      />}
       {/* <button onClick={handleClick}>Get Breeds</button> */}
     </div>
   );
