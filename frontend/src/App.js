@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Dropdown from "./Dropdown";
+import { StarRating } from "./StarRating";
 
 
 function App() {
@@ -7,7 +8,11 @@ function App() {
   const [breedData, setBreedData] = useState({});
   const [lookupBreed, setLookupBreed] = useState('');
   const [catImageURL, setCatImageURL] = useState('');
+  const [breedDescription, setBreedDescription] = useState('');
+  const [ratingData, setRatingData] = useState({});
   // const [idNamePairs, setIdNamePairs] = useState([]);
+
+  console.log("Rating Data length:", Object.keys(ratingData).length);
 
   const requestRandomCatImage = async (breedId) => {
     fetch(`http://localhost:3000/catImage?breedId=${breedId}`)
@@ -29,11 +34,42 @@ function App() {
     }
   }
 
+  const getSingleBreedData = (selectedBreedName) => {
+    if (selectedBreedName && selectedBreedName !== ''){
+      const singleBreedDataObject = breedData.find(obj => obj.name === selectedBreedName);
+      console.log("Single Breed Data Object All of it: ", singleBreedDataObject);
+      setBreedDescription(singleBreedDataObject.description)
+      const stringDescriptorsLocal = {
+        "Temperament": singleBreedDataObject.temperament,
+        "Origin": singleBreedDataObject.origin,
+        "Life Span": singleBreedDataObject.life_span,
+      }
+      const ratingDataLocal = {
+        "Adaptability": singleBreedDataObject.adaptability,
+        "Affection Level": singleBreedDataObject.affection_level,
+        "Child Friendly": singleBreedDataObject.child_friendly,
+        "Grooming": singleBreedDataObject.grooming,
+        "Intelligence": singleBreedDataObject.intelligence,
+        "Health Issues": singleBreedDataObject.health_issues,
+        "Social Needs": singleBreedDataObject.social_needs,
+        "Stranger Friendly": singleBreedDataObject.stranger_friendly,
+      };
+      setRatingData(ratingDataLocal);
+    }
+  }
+
+  useEffect(() => {
+    if (breedDescription !== ''){
+      console.log("Breed Desc. in useEffect: ", breedDescription);
+    }
+  }, [breedDescription])
+
   const handleBreedSelected = (selectedBreed) => {
     if (selectedBreed && selectedBreed !== ''){
       // setLookupBreed(selectedBreed)
       console.log("Selected Breed: ", selectedBreed);
       const breedId = getBreedId(selectedBreed);
+      getSingleBreedData(selectedBreed);
       requestRandomCatImage(breedId);
     }
   }
@@ -62,10 +98,7 @@ function App() {
   // Set dropdown options after breedData updated.
   useEffect(() => {
     if (breedData && breedData.length > 0) {
-      console.log("Breed data in useEffect: ", breedData);
-      console.log("Temp value in useEffect: ", breedData.map(obj => obj.name));
       const temp = breedData.map(obj => obj.name);
-      console.log("Temp after assignment: ", temp);
       setDropdownOptions(temp);
     }
   }, [breedData]);
@@ -74,6 +107,8 @@ function App() {
     if (dropdownOptions.length > 0)
     console.log("Dropdown Options in logging useEffect: ", dropdownOptions);
   }, [dropdownOptions]);
+
+  const intValue = 2;
 
 
   return (
@@ -87,6 +122,13 @@ function App() {
         alt="Random Cat Image"
         style={{ maxWidth: '500px' }}
       />
+      <div>
+        {Object.keys(ratingData).length > 0 && 
+          Object.entries(ratingData).map(([key, value]) => (
+          <StarRating feature={key} score={value}/>
+        ))}
+      </div>
+      
     </div>
   );
 }

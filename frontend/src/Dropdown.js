@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 
 const Dropdown = ({dropdownOptions, handleBreedSelected}) => {
     
-  // const dropdownOptions = props.dropdownOptions;
   const [selectedOption, setSelectedOption] = useState('');
     
   const handleSelect = (event) => {
