@@ -92,7 +92,7 @@ function App() {
  
 
   const handleScreenLoad = async () => {
-      fetch('http://catapi-full-stack-app-node.onrender.com/breedsList')
+      fetch(`https://catapi-full-stack-app-node.onrender.com/breedsList`)
         .then(response => response.json())
         .then(data => {
           console.log("Data: ", data);
