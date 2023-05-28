@@ -17,7 +17,7 @@ function App() {
   console.log("Rating Data length:", Object.keys(ratingData).length);
 
   const requestSingleCatImage = async (breedId) => {
-    fetch(`http://localhost:3000/catImage?breedId=${breedId}`)
+    fetch(`https://catapi-full-stack-app-node.onrender.com/catImage?breedId=${breedId}`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -29,7 +29,7 @@ function App() {
       })
   }
   const requestTenCatImages = async (breedId) => {
-    fetch(`http://localhost:3000/catImages?breedId=${breedId}`)
+    fetch(`https://catapi-full-stack-app-node.onrender.com/catImages?breedId=${breedId}`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
