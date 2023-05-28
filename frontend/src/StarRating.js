@@ -33,7 +33,7 @@ export function StarRating(props) {
             src={booleanValue ? FullStar : EmptyStar} 
             alt="Star" 
             style={{maxWidth: '25px'}}>
-        </img>
+          </img>
         ))}
         
       </div>

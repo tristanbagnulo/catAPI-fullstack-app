@@ -8,19 +8,33 @@ function App() {
   const [breedData, setBreedData] = useState({});
   const [lookupBreed, setLookupBreed] = useState('');
   const [catImageURL, setCatImageURL] = useState('');
+  const [catImageURLs, setCatImageURLs] = useState('');
   const [breedDescription, setBreedDescription] = useState('');
   const [ratingData, setRatingData] = useState({});
+  const [stringDescriptors, setStringDescriptors] = useState({});
   // const [idNamePairs, setIdNamePairs] = useState([]);
 
   console.log("Rating Data length:", Object.keys(ratingData).length);
 
-  const requestRandomCatImage = async (breedId) => {
+  const requestSingleCatImage = async (breedId) => {
     fetch(`http://localhost:3000/catImage?breedId=${breedId}`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
         setCatImageURL(data[0].url)
         console.log("Cat Image URL: ", data[0].url);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+  const requestTenCatImages = async (breedId) => {
+    fetch(`http://localhost:3000/catImages?breedId=${breedId}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setCatImageURLs(data.map(item => item.url));
+        console.log("Cat Image URLs: ", data.map(item => item.url));
       })
       .catch(error => {
         console.log(error);
@@ -44,6 +58,7 @@ function App() {
         "Origin": singleBreedDataObject.origin,
         "Life Span": singleBreedDataObject.life_span,
       }
+      setStringDescriptors(stringDescriptorsLocal)
       const ratingDataLocal = {
         "Adaptability": singleBreedDataObject.adaptability,
         "Affection Level": singleBreedDataObject.affection_level,
@@ -70,7 +85,8 @@ function App() {
       console.log("Selected Breed: ", selectedBreed);
       const breedId = getBreedId(selectedBreed);
       getSingleBreedData(selectedBreed);
-      requestRandomCatImage(breedId);
+      requestSingleCatImage(breedId);
+      requestTenCatImages(breedId);
     }
   }
  
@@ -117,18 +133,38 @@ function App() {
         dropdownOptions={dropdownOptions} 
         handleBreedSelected={handleBreedSelected}
       />}
-      <img 
-        src={catImageURL}
-        alt="Random Cat Image"
-        style={{ maxWidth: '500px' }}
-      />
+      <span>
+        <img 
+          src={catImageURL}
+          alt="Random Cat Image"
+          style={{ maxWidth: '500px' }}
+        />
+      </span>
+      <span>
+        {
+          Object.keys(stringDescriptors).length > 0 &&
+            Object.entries(stringDescriptors).map(([key, value]) => (
+              <div>
+                <span><h2>{key}</h2></span>
+                <span><p>{value}</p></span>
+              </div>
+            ))
+        }
+      </span>
       <div>
         {Object.keys(ratingData).length > 0 && 
           Object.entries(ratingData).map(([key, value]) => (
           <StarRating feature={key} score={value}/>
         ))}
       </div>
-      
+      {catImageURLs.length > 0 && catImageURLs.map((url, index) => (
+        <img
+          key={index}
+          src={url} 
+          alt={`Image ${index + 1}`} 
+          style={{maxWidth: '100px'}}>
+        </img>
+      ))}
     </div>
   );
 }
