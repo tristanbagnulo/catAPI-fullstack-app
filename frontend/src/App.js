@@ -92,10 +92,10 @@ function App() {
  
 
   const handleScreenLoad = async () => {
-      fetch('http://localhost:3000/breedsList')
+      fetch('http://catapi-full-stack-app-node.onrender.com/breedsList')
         .then(response => response.json())
         .then(data => {
-          console.log("Data: ", data);
+          console.log("Data: ", data);F
           setBreedData(data);
           // setDropdownOptions(data.map(obj => obj.name));
           // console.log("Dropdown options: ", dropdownOptions);
