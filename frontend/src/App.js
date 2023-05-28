@@ -95,7 +95,7 @@ function App() {
       fetch('http://catapi-full-stack-app-node.onrender.com/breedsList')
         .then(response => response.json())
         .then(data => {
-          console.log("Data: ", data);F
+          console.log("Data: ", data);
           setBreedData(data);
           // setDropdownOptions(data.map(obj => obj.name));
           // console.log("Dropdown options: ", dropdownOptions);
