@@ -148,63 +148,72 @@ function App() {
           handleBreedSelected={handleBreedSelected}
         />}
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <span>
-          <img 
-            src={catImageURL}
-            alt="Random Cat Image"
-            style={{
-              maxHeight: '300px',
-              margin: '10px',
-              borderRadius: '10px'
-            }}>
-          </img>
-        </span>
-        {selectedBreedName !== '' && breedDescription !== '' && 
-        <div>
-          <h1>{selectedBreedName}</h1>
-          <h2>Description</h2>
-          <p style={{
-              maxWidth: '400px',
-              margin: '10px',
-              // borderRadius: '10px'
-            }}>{breedDescription}</p>
-        </div> 
-        }
-        <div style={{
-          maxWidth: '200px',
-          margin: '10px'
-        }}>
-          {
-            Object.keys(stringDescriptors).length > 0 &&
-              Object.entries(stringDescriptors).map(([key, value]) => (
-                <div>
-                  <span><h2>{key}</h2></span>
-                  <span><p>{value}</p></span>
-                </div>
-              ))
+      { selectedBreedName !== '' && 
+      <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span>
+            <img 
+              src={catImageURL}
+              alt="Random Cat Image"
+              style={{
+                maxHeight: '300px',
+                margin: '10px',
+                borderRadius: '10px'
+              }}>
+            </img>
+          </span>
+          {selectedBreedName !== '' && breedDescription !== '' && 
+          <div>
+            <h1>{selectedBreedName}</h1>
+            <h2>Description</h2>
+            <p style={{
+                maxWidth: '400px',
+                margin: '10px',
+                // borderRadius: '10px'
+              }}>{breedDescription}</p>
+          </div> 
           }
+          <div style={{
+            maxWidth: '200px',
+            margin: '10px'
+          }}>
+            {
+              Object.keys(stringDescriptors).length > 0 &&
+                Object.entries(stringDescriptors).map(([key, value]) => (
+                  <div>
+                    <span><h2>{key}</h2></span>
+                    <span><p>{value}</p></span>
+                  </div>
+                ))
+            }
+          </div>
+          <div>
+            {Object.keys(ratingData).length > 0 && 
+              Object.entries(ratingData).map(([key, value]) => (
+              <StarRating feature={key} score={value}/>
+            ))}
+          </div>
+          
         </div>
         <div>
-          {Object.keys(ratingData).length > 0 && 
-            Object.entries(ratingData).map(([key, value]) => (
-            <StarRating feature={key} score={value}/>
+        <h2>More images of breed</h2>
+          {catImageURLs.length > 0 && catImageURLs.map((url, index) => (
+            <img
+              key={index}
+              src={url} 
+              alt={`Image ${index + 1}`} 
+              style={{
+                maxHeight: '200px',
+                margin: '10px',
+                borderRadius: '10px'
+              }}>
+            </img>
           ))}
         </div>
       </div>
-      <h2>More images of breed</h2>
-      {catImageURLs.length > 0 && catImageURLs.map((url, index) => (
-        <img
-          key={index}
-          src={url} 
-          alt={`Image ${index + 1}`} 
-          style={{
-            maxHeight: '200px',
-            margin: '10px',
-            borderRadius: '10px'
-          }}>
-        </img>
-      ))}
+      
+      }
+
     </div>
   );
 }
