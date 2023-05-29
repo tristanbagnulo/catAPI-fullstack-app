@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Dropdown from "./Dropdown";
 import { StarRating } from "./StarRating";
+import CatIcon from './cat-icon.png'
 
 
 function App() {
   const [dropdownOptions, setDropdownOptions] = useState([]);
   const [breedData, setBreedData] = useState({});
-  const [lookupBreed, setLookupBreed] = useState('');
+  const [selectedBreedName, setSelectedBreedName] = useState('');
   const [catImageURL, setCatImageURL] = useState('');
   const [catImageURLs, setCatImageURLs] = useState('');
   const [breedDescription, setBreedDescription] = useState('');
@@ -83,6 +84,7 @@ function App() {
     if (selectedBreed && selectedBreed !== ''){
       // setLookupBreed(selectedBreed)
       console.log("Selected Breed: ", selectedBreed);
+      setSelectedBreedName(selectedBreed);
       const breedId = getBreedId(selectedBreed);
       getSingleBreedData(selectedBreed);
       requestSingleCatImage(breedId);
@@ -129,40 +131,78 @@ function App() {
 
   return (
     <div className="App">
-      {dropdownOptions.length > 0 && <Dropdown 
-        dropdownOptions={dropdownOptions} 
-        handleBreedSelected={handleBreedSelected}
-      />}
-      <span>
-        <img 
-          src={catImageURL}
-          alt="Random Cat Image"
-          style={{ maxWidth: '500px' }}
-        />
-      </span>
-      <span>
-        {
-          Object.keys(stringDescriptors).length > 0 &&
-            Object.entries(stringDescriptors).map(([key, value]) => (
-              <div>
-                <span><h2>{key}</h2></span>
-                <span><p>{value}</p></span>
-              </div>
-            ))
-        }
-      </span>
-      <div>
-        {Object.keys(ratingData).length > 0 && 
-          Object.entries(ratingData).map(([key, value]) => (
-          <StarRating feature={key} score={value}/>
-        ))}
+      <header style={{ backgroundColor: 'lightblue', padding: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <img 
+            src={CatIcon} 
+            alt="Star" 
+            style={{maxWidth: '50px'}}>
+          </img>
+          <h1>Cat Search Bonanza</h1>
+        </div>
+      </header>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <h1>Cat Lookup</h1>
+        {dropdownOptions.length > 0 && <Dropdown 
+          dropdownOptions={dropdownOptions} 
+          handleBreedSelected={handleBreedSelected}
+        />}
       </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <span>
+          <img 
+            src={catImageURL}
+            alt="Random Cat Image"
+            style={{
+              maxHeight: '300px',
+              margin: '10px',
+              borderRadius: '10px'
+            }}>
+          </img>
+        </span>
+        {selectedBreedName !== '' && breedDescription !== '' && 
+        <div>
+          <h2>Selected Breed: {selectedBreedName}</h2>
+          <h2>Description</h2>
+          <p style={{
+              maxWidth: '400px',
+              margin: '10px',
+              // borderRadius: '10px'
+            }}>{breedDescription}</p>
+        </div> 
+        }
+        <div style={{
+          maxWidth: '200px',
+          margin: '10px'
+        }}>
+          {
+            Object.keys(stringDescriptors).length > 0 &&
+              Object.entries(stringDescriptors).map(([key, value]) => (
+                <div>
+                  <span><h2>{key}</h2></span>
+                  <span><p>{value}</p></span>
+                </div>
+              ))
+          }
+        </div>
+        <div>
+          {Object.keys(ratingData).length > 0 && 
+            Object.entries(ratingData).map(([key, value]) => (
+            <StarRating feature={key} score={value}/>
+          ))}
+        </div>
+      </div>
+      <h2>More images of breed</h2>
       {catImageURLs.length > 0 && catImageURLs.map((url, index) => (
         <img
           key={index}
           src={url} 
           alt={`Image ${index + 1}`} 
-          style={{maxWidth: '100px'}}>
+          style={{
+            maxHeight: '200px',
+            margin: '10px',
+            borderRadius: '10px'
+          }}>
         </img>
       ))}
     </div>

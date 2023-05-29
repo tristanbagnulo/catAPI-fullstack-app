@@ -24,19 +24,17 @@ export function StarRating(props) {
   // Catch Rating value
 
   return (
-    <div className='App'>
-      <span>{feature}</span>
-      <div>
-        {ratingObject.map((booleanValue, index) => (
-          <img 
-            key={index}
-            src={booleanValue ? FullStar : EmptyStar} 
-            alt="Star" 
-            style={{maxWidth: '25px'}}>
-          </img>
-        ))}
+    <div className='App' style={{ display: 'flex', alignItems: 'center'}}>
+      <h3 style={{ margin: '10px'}}>{feature}</h3>
+      {ratingObject.map((booleanValue, index) => (
+        <img 
+          key={index}
+          src={booleanValue ? FullStar : EmptyStar} 
+          alt="Star" 
+          style={{maxWidth: '25px'}}>
+        </img>
+      ))}
         
-      </div>
     </div>
   );
 }

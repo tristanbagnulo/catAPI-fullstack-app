@@ -12,18 +12,15 @@ const Dropdown = ({dropdownOptions, handleBreedSelected}) => {
   return (
     <div>
       {dropdownOptions && dropdownOptions.length > 0 &&
-          <select value={selectedOption} onChange={handleSelect}>
+          <select value={selectedOption} onChange={handleSelect} style={{ fontSize: '2rem' }}>
           <option value="">Select an option</option>
           {dropdownOptions.map((dropdownOption, index) => (
-            <option key={index} value={dropdownOption}>
+            <option key={index} value={dropdownOption} style={{ fontSize: '2rem' }}>
               {dropdownOption}
             </option>
           ))}
         </select>
-      
       }
-      
-      <p>Selected value: {selectedOption}</p>
     </div>
   );
 };
