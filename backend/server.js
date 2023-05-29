@@ -9,14 +9,10 @@ const apiKey='live_S68Wc3bhKRn5rQ84vyjuwA9d658Xmh1inrm4h2eyDCPSgowlRDkaPwVjNrSA6
 app.use(cors());
 
 
-//Get the list of breed id and name for querying list
+// Get the cat API data containing breedIds and breedNames
 app.get('/breedsList', async (req, res) => {
     try {
         const response = await axios.get(`https://api.thecatapi.com/v1/breeds`);
-
-        //Just breen name and ID
-        // const idNameBreeds = res.json(response.data.map(obj => ({id: obj.id, name: obj.name})))
-        // console.log(res.json(response.data));
         return res.json(response.data);
         
     } catch (error) {
@@ -25,9 +21,7 @@ app.get('/breedsList', async (req, res) => {
     }
 });
 
-//Get the data about a specific cat's image
-// Test URL - http://localhost:3000/catImage?breedId=beng
-// Response - [{"id":"H_UWbOfra","url":"https://cdn2.thecatapi.com/images/H_UWbOfra.jpg","width":1200,"height":1200}]
+// Get a single cat's image.
 app.get('/catImage', async (req, res) => {
     try {
         const breedId = req.query.breedId
@@ -39,7 +33,7 @@ app.get('/catImage', async (req, res) => {
     }
 });
 
-// Get a collection of 10 cat images given the breed
+// Get multiple images of a single cat.
 app.get('/catImages', async (req, res) => {
     try {
         const breedId = req.query.breedId
