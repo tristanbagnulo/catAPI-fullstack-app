@@ -162,7 +162,7 @@ function App() {
         </span>
         {selectedBreedName !== '' && breedDescription !== '' && 
         <div>
-          <h2>Selected Breed: {selectedBreedName}</h2>
+          <h1>{selectedBreedName}</h1>
           <h2>Description</h2>
           <p style={{
               maxWidth: '400px',
