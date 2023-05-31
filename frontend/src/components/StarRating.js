@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import FullStar from './star-full.svg'
-import EmptyStar from './star-empty.svg'
+import FullStar from '../images/star-full.svg'
+import EmptyStar from '../images/star-empty.svg'
 
-export function StarRating(props) {
+export default function StarRating(props) {
   const feature = props.feature
   const score = props.score
   const [ratingObject, setRatingObject] = useState([]); // initial rating value

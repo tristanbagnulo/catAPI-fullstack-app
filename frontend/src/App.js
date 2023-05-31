@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Dropdown from "./Dropdown";
-import { StarRating } from "./StarRating";
-import CatIcon from './cat-icon.png'
+import Dropdown from "./components/Dropdown";
+import StarRating  from "./components/StarRating";
+import CatIcon from './images/cat-icon.png'
 
 
 function App() {
