@@ -13,7 +13,6 @@ function App() {
   const [breedDescription, setBreedDescription] = useState('');
   const [ratingData, setRatingData] = useState({});
   const [stringDescriptors, setStringDescriptors] = useState({});
-  // const [idNamePairs, setIdNamePairs] = useState([]);
 
   console.log("Rating Data length:", Object.keys(ratingData).length);
 
@@ -82,7 +81,6 @@ function App() {
 
   const handleBreedSelected = (selectedBreed) => {
     if (selectedBreed && selectedBreed !== ''){
-      // setLookupBreed(selectedBreed)
       console.log("Selected Breed: ", selectedBreed);
       setSelectedBreedName(selectedBreed);
       const breedId = getBreedId(selectedBreed);
@@ -99,9 +97,7 @@ function App() {
         .then(data => {
           console.log("Data: ", data);
           setBreedData(data);
-          // setDropdownOptions(data.map(obj => obj.name));
-          // console.log("Dropdown options: ", dropdownOptions);
-          // setIdNamePairs(data.map(obj => ({ id: obj.id, name: obj.name })));
+          console.log("Breed Data: ", breedData);
         })
         .catch(error => {
           console.log(error);
@@ -126,94 +122,94 @@ function App() {
     console.log("Dropdown Options in logging useEffect: ", dropdownOptions);
   }, [dropdownOptions]);
 
-  const intValue = 2;
-
-
-  return (
-    <div className="App">
+  return(
+    <div className="App container mx-auto px-4">
       <header style={{ backgroundColor: 'lightblue', padding: '10px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <img 
             src={CatIcon} 
-            alt="Star" 
+            alt="Cat Bazaar Logo" 
             style={{maxWidth: '50px'}}>
           </img>
-          <h1>Cat Search Bonanza</h1>
+          <h1 className="text-blue-900 text-3xl">Cat Bazaar</h1>
         </div>
       </header>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <h1>Cat Lookup</h1>
-        {dropdownOptions.length > 0 && <Dropdown 
-          dropdownOptions={dropdownOptions} 
-          handleBreedSelected={handleBreedSelected}
-        />}
-      </div>
-      { selectedBreedName !== '' && 
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span>
-            <img 
-              src={catImageURL}
-              alt="Random Cat Image"
-              style={{
-                maxHeight: '300px',
-                margin: '10px',
-                borderRadius: '10px'
-              }}>
-            </img>
-          </span>
-          {selectedBreedName !== '' && breedDescription !== '' && 
-          <div>
-            <h1>{selectedBreedName}</h1>
-            <h2>Description</h2>
-            <p style={{
-                maxWidth: '400px',
-                margin: '10px',
-                // borderRadius: '10px'
-              }}>{breedDescription}</p>
-          </div> 
-          }
-          <div style={{
-            maxWidth: '200px',
-            margin: '10px'
-          }}>
-            {
-              Object.keys(stringDescriptors).length > 0 &&
-                Object.entries(stringDescriptors).map(([key, value]) => (
-                  <div>
-                    <span><h2>{key}</h2></span>
-                    <span><p>{value}</p></span>
-                  </div>
-                ))
-            }
-          </div>
-          <div>
-            {Object.keys(ratingData).length > 0 && 
-              Object.entries(ratingData).map(([key, value]) => (
-              <StarRating feature={key} score={value}/>
-            ))}
+      <span className="flex flex-col sm:flex-row sm:items-center sm:gap-10 bg-gray-200 my-2 py-1">
+        <h1 className="order-0 sm:order-0 text-xl font-bold">Cat Lookup</h1>
+        {dropdownOptions.length > 0 && 
+          <div className="order-1 sm:order-1">
+            <Dropdown 
+              dropdownOptions={dropdownOptions} 
+              handleBreedSelected={handleBreedSelected}
+            />
           </div>
           
-        </div>
+        }
+      </span>
+      { selectedBreedName !== '' && 
         <div>
-        <h2>More images of breed</h2>
-          {catImageURLs.length > 0 && catImageURLs.map((url, index) => (
-            <img
-              key={index}
-              src={url} 
-              alt={`Image ${index + 1}`} 
-              style={{
-                maxHeight: '200px',
-                margin: '10px',
-                borderRadius: '10px'
-              }}>
-            </img>
-          ))}
+          <div className="flex items-center gap-4" >
+            <div>
+              <img 
+                src={catImageURL}
+                alt="Random Cat Image"
+                style={{ 
+                  maxHeight: '300px', 
+                  maxWidth: '400px', 
+                  margin: '10px',
+                  borderRadius: '10px'
+                }}
+              />
+            </div>
+            {selectedBreedName !== '' && breedDescription !== '' && 
+              <div className="flex-grow">
+                <div className="flex flex-col justify-start h-full">
+                  <h1 className="font-bold text-3xl">{selectedBreedName}</h1>
+                  <h2 className="font-bold">Description</h2>
+                  <p>{breedDescription}</p>
+                </div>
+              </div> 
+            }
+            <div className="flex-grow">
+              {
+                Object.keys(stringDescriptors).length > 0 &&
+                  Object.entries(stringDescriptors).map(([key, value]) => (
+                    <div className="flex flex-col justify-center">
+                      <div className="font-bold text-lg">{key}</div>
+                      <div className="text-base">{value}</div>
+                    </div>
+                  ))
+              }
+            </div>
+            <div className="flex-grow min-w-0 flex-shrink-0 w-100" >
+              {Object.keys(ratingData).length > 0 && 
+                Object.entries(ratingData).map(([key, value]) => (
+                <StarRating feature={key} score={value}/>
+              ))}
+            </div>
+            
+          </div>
+          <div>
+            <div className="text-2xl font-bold">More images of the {selectedBreedName}</div>
+            <div className="flex flex-wrap gap-4">
+              {catImageURLs.length > 0 && catImageURLs.map((url, index) => (
+                
+                  <img
+                    key={index}
+                    src={url} 
+                    alt={`Image ${index + 1}`} 
+                    style={{
+                      maxHeight: '200px',
+                      margin: '10px',
+                      borderRadius: '10px'
+                    }}>
+                  </img>
+                
+              ))}
+              </div>
+          </div>
         </div>
-      </div>
-      
       }
-
     </div>
   );
 }
