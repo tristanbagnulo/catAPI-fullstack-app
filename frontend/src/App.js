@@ -107,6 +107,7 @@ function App() {
   useEffect(() => {
     handleScreenLoad();
     console.log("CLICK HANDLED!!!");
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Set dropdown options after breedData updated.
@@ -152,7 +153,7 @@ function App() {
             <div>
               <img 
                 src={catImageURL}
-                alt="Random Cat Image"
+                alt="Random Cat"
                 style={{ 
                   maxHeight: '300px', 
                   maxWidth: '400px', 
@@ -197,7 +198,7 @@ function App() {
                   <img
                     key={index}
                     src={url} 
-                    alt={`Image ${index + 1}`} 
+                    alt={`Cat ${index + 1}`} 
                     style={{
                       maxHeight: '200px',
                       margin: '10px',
