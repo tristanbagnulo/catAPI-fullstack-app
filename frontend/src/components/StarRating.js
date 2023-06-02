@@ -32,7 +32,7 @@ export default function StarRating(props) {
           key={index}
           src={booleanValue ? FullStar : EmptyStar} 
           alt="Star" 
-          className='max-w-full h-auto max-h-6'
+          className='w-auto h-auto max-h-6'
         />
       ))}
       </div> 

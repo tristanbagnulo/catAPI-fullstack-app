@@ -167,7 +167,7 @@ function App() {
               {selectedBreedName !== '' && breedDescription !== '' && 
                 <div className="flex-grow">
                   <div className="flex flex-col justify-start h-full">
-                    <h1 className="font-bold text-3xl">{selectedBreedName}</h1>
+                    <h1 className="font-bold text-3xl mb-4">{selectedBreedName}</h1>
                     <h2 className="font-bold">Description</h2>
                     <p>{breedDescription}</p>
                   </div>
