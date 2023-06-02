@@ -149,52 +149,54 @@ function App() {
       </span>
       { selectedBreedName !== '' && 
         <div>
-          <div className="flex items-center gap-4" >
-            <div>
-              <img 
-                src={catImageURL}
-                alt="Random Cat"
-                style={{ 
-                  maxHeight: '300px', 
-                  maxWidth: '400px', 
-                  margin: '10px',
-                  borderRadius: '10px'
-                }}
-              />
-            </div>
-            {selectedBreedName !== '' && breedDescription !== '' && 
-              <div className="flex-grow">
-                <div className="flex flex-col justify-start h-full">
-                  <h1 className="font-bold text-3xl">{selectedBreedName}</h1>
-                  <h2 className="font-bold">Description</h2>
-                  <p>{breedDescription}</p>
-                </div>
-              </div> 
-            }
-            <div className="flex-grow">
-              {
-                Object.keys(stringDescriptors).length > 0 &&
-                  Object.entries(stringDescriptors).map(([key, value]) => (
-                    <div className="flex flex-col justify-center">
-                      <div className="font-bold text-lg">{key}</div>
-                      <div className="text-base">{value}</div>
-                    </div>
-                  ))
+          <div>
+            {/* flex flex-col gap-4 sm:flex-row */}
+            <div className={"flex flex-wrap gap-4 lg:flex-nowrap"} >
+              <div>
+                <img 
+                  src={catImageURL}
+                  alt="Random Cat"
+                  style={{ 
+                    maxHeight: '300px', 
+                    maxWidth: '300px', 
+                    margin: '10px',
+                    borderRadius: '10px'
+                  }}
+                />
+              </div>
+              {selectedBreedName !== '' && breedDescription !== '' && 
+                <div className="flex-grow">
+                  <div className="flex flex-col justify-start h-full">
+                    <h1 className="font-bold text-3xl">{selectedBreedName}</h1>
+                    <h2 className="font-bold">Description</h2>
+                    <p>{breedDescription}</p>
+                  </div>
+                </div> 
               }
+              <div className="flex-grow">
+                {
+                  Object.keys(stringDescriptors).length > 0 &&
+                    Object.entries(stringDescriptors).map(([key, value]) => (
+                      <div className="flex flex-col justify-center">
+                        <div className="font-bold text-lg">{key}</div>
+                        <div className="text-base">{value}</div>
+                      </div>
+                    ))
+                }
+              </div>
+              <div className="flex-grow min-w-0 flex-shrink-0 w-100" >
+                {Object.keys(ratingData).length > 0 && 
+                  Object.entries(ratingData).map(([key, value]) => (
+                  <StarRating feature={key} score={value}/>
+                ))}
+              </div>
             </div>
-            <div className="flex-grow min-w-0 flex-shrink-0 w-100" >
-              {Object.keys(ratingData).length > 0 && 
-                Object.entries(ratingData).map(([key, value]) => (
-                <StarRating feature={key} score={value}/>
-              ))}
-            </div>
-            
           </div>
           <div>
             <div className="text-2xl font-bold">More images of the {selectedBreedName}</div>
-            <div className="flex flex-wrap gap-4">
-              {catImageURLs.length > 0 && catImageURLs.map((url, index) => (
-                
+            <div className="flex items-center">
+              <div className="flex flex-wrap gap-4">
+                {catImageURLs.length > 0 && catImageURLs.map((url, index) => (
                   <img
                     key={index}
                     src={url} 
@@ -203,11 +205,11 @@ function App() {
                       maxHeight: '200px',
                       margin: '10px',
                       borderRadius: '10px'
-                    }}>
-                  </img>
-                
-              ))}
+                    }}
+                  />
+                ))}
               </div>
+            </div>
           </div>
         </div>
       }
