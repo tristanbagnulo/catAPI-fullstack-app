@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Dropdown from "./components/Dropdown";
 import StarRating  from "./components/StarRating";
-import CatIcon from './images/cat-icon.png'
+import CatIcon from './assets/cat-icon.png'
+import LoadingOverlay from "./components/LoadingOverlay";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const [breedDescription, setBreedDescription] = useState('');
   const [ratingData, setRatingData] = useState({});
   const [stringDescriptors, setStringDescriptors] = useState({});
+  const [loadingBreedsData, setLoadingBreedsData ] = useState(false);
 
   console.log("Rating Data length:", Object.keys(ratingData).length);
 
@@ -92,9 +94,11 @@ function App() {
  
 
   const handleScreenLoad = async () => {
+    setLoadingBreedsData(true);
       fetch(`https://catapi-full-stack-app-node.onrender.com/breedsList`)
         .then(response => response.json())
         .then(data => {
+          setLoadingBreedsData(false);
           console.log("Data: ", data);
           setBreedData(data);
           console.log("Breed Data: ", breedData);
@@ -106,7 +110,7 @@ function App() {
 
   useEffect(() => {
     handleScreenLoad();
-    console.log("CLICK HANDLED!!!");
+    console.log("All breeds content requested.");
      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -213,6 +217,7 @@ function App() {
           </div>
         </div>
       }
+      {loadingBreedsData && <LoadingOverlay />}
     </div>
   );
 }
