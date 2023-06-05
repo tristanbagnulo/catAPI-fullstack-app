@@ -10,7 +10,8 @@ For backend run `node server.js` in the `/backend` directory.
 * User can see multiple photos of their selected breed at the bottom of the page below the information about the breed.
 * User can see the details of the breed they select. These details include description, temperament, origin, life span, adaptability, affection level, child-friendlym grooming, intelligence, health issues, social needs and stranger friendly.
 * Application deployed on render and accessible on https://catapi-fullstack-app-forntend.onrender.com/
-* Neatly formatted frontend (some styalistic choices that I made could have benefited from the advice of a UI/UX designer :D )
+* Neatly formatted frontend.
+* Dynamic Rendering for usability across Mobile, Tablet and Desktop
 
 
 
